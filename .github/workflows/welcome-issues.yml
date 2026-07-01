@@ -1,0 +1,37 @@
+name: Auto Welcome Issues
+
+on:
+  issues:
+    types: [opened]
+
+# This grants our pipeline explicit permission to write comments and edit labels
+permissions:
+  issues: write
+
+jobs:
+  welcome-message:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Post a Welcome Comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // This runs JavaScript inside the runner to talk directly to the GitHub API
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "👋 Welcome to our practice repository! Thank you for opening your very first issue. Our automated GitHub Actions pipeline just processed this successfully!"
+            });
+
+      - name: Add a Welcome Label
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['documentation']
+            });

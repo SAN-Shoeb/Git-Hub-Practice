@@ -1,0 +1,23 @@
+name: My First GitHub Actions Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Pull Source Code
+        uses: actions/checkout@v4
+
+      - name: Run a Greeting
+        run: echo "Hello World! The pipeline is executing successfully."
+
+      - name: Check System Status
+        run: |
+          echo "Current time is:"
+          date
+          echo "Runner operating system info:"
+          uname -a

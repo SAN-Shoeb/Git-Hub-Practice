@@ -1,0 +1,19 @@
+name: Daily Greeting Scheduler
+
+on:
+  schedule:
+    # This tells GitHub to run this workflow automatically at 06:34 UTC every day
+    - cron: '34 6 * * *'
+  # This button lets us trigger it manually anytime we don't want to wait
+  workflow_dispatch:
+
+jobs:
+  scheduled-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Generate Daily Inspiration
+        run: |
+          echo "Good morning! Your automated daily pipeline has successfully awakened."
+          echo "Today's date and time is:"
+          date
